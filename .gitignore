@@ -1,0 +1,5 @@
+*.asv
+*.autosave
+*.rt-win64
+/heli_q8_quarc_win64
+/slprj
