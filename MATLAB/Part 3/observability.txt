@@ -1,0 +1,13 @@
+
+A_obs = [0 1 0 0 0 0; 0 0 0 0 0 0; 0 0 0 1 0 0; 0 0 0 0 0 0; 0 0 0 0 0 1; k_3 0 0 0 0 0];
+C_obs = [1 0 0 0 0 0; 0 0 1 0 0 0; 0 0 0 0 1 0];
+
+% CA1 = C_obs * A_obs;
+% CA2 = C_obs * A_obs * A_obs;
+% CA3 = C_obs * A_obs * A_obs * A_obs;
+% CA4 = C_obs * A_obs * A_obs * A_obs * A_obs;
+% CA5 = C_obs * A_obs * A_obs * A_obs * A_obs * A_obs;v 
+% 
+% O = [C_obs;CA1;CA2;CA3;CA4;CA5];
+% 
+% controll = rank(O);
