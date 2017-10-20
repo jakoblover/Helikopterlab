@@ -77,8 +77,8 @@ K_PI = lqr(A_PI, B_PI, Q_PI, R);
 P_P = inv(C_P*inv(B_P*K_P - A_P) * B_P);
 P_PI = inv(C_P*inv(B_P*K_PI(:,1:3) - A_P) * B_P);
 
-system_poles = eig(A_P-B_P*K_P);
-system_poles_max_magnitude = max(abs(eig(A_P-B_P*K_P)))*20;
+system_poles = eig(A_PI-B_PI*K_PI);
+system_poles_max_magnitude = max(abs(eig(A_PI-B_PI*K_PI)))*20;
 obsv_poles_angle = [-pi*(1/8) -pi*(3/40) -pi*(1/40) pi*(1/40) pi*(3/40) pi*(1/8)];
 obsv_poles = -system_poles_max_magnitude*exp(1i*obsv_poles_angle);
 
