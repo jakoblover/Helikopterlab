@@ -48,6 +48,10 @@ k_pd = 10;
 
 k_pt = 10;
 
+A_P = [0 1 0; 0 0 0; 0 0 0];
+B_P = [0 0 ; 0 k_1 ; k_2 0];
+C_P = [1 0 0; 0 0 1];
+
 %---------Proportional-Integrator regulator matrices----------%
 A_PI = [0 1 0 0 0; 0 0 0 0 0; 0 0 0 0 0; 1 0 0 0 0; 0 0 1 0 0];
 B_PI = [0 0 ; 0 k_1 ; k_2 0; 0 0; 0 0];
@@ -59,17 +63,17 @@ B_obs = [0 0 ; 0 k_1 ; 0 0; k_2 0; 0 0; 0 0];
 C_obs = [0 0 1 0 0 0; 0 0 0 0 1 0];
 
 R = diag([10 1000]);
+Q_P = diag([10000 10000 1000]); 
 Q_PI = diag([100 1000 1000 100000 10000]); %pitch, pitch rate, elevation rate, pitch integral, elevation integral
+K_P = lqr(A_P, B_P, Q_P, R);
 K_PI = lqr(A_PI, B_PI, Q_PI, R);
 P_PI = inv(C_P*inv(B_P*K_PI(:,1:3) - A_P) * B_P);
 
-%P = [0 31.6228; 1 0];
+system_poles = eig(A_P-B_P*K_P);
+system_poles_max_magnitude = max(abs(eig(A_P-B_P*K_P)))*20;
+obsv_poles_angle = [-pi*(1/8) -pi*(3/40) -pi*(1/40) pi*(1/40) pi*(3/40) pi*(1/8)];
+obsv_poles = -system_poles_max_magnitude*exp(1i*obsv_poles_angle);
 
-%pol_magnitude = max(abs(eig(A-B*K)))*20;
-%theta = 
-%-r*exp(i*theta);
-poles = [-20 -40 -60 -80 -100 -120];
-
-L = place(A_obs',C_obs',poles)';
+L = place(A_obs',C_obs',obsv_poles)';
 
 A_LC = A_obs - (L*C_obs);
